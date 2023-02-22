@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - "main"
+      - "develop"
+      - "ci"
+
+env:
+  TAG_NAME: ${{ github.repository }}:${{ github.sha }}
+
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      -
+        name: Lint
+        run: pylint life_expectancy.cleaning
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      -
+        name: Test
+        run: pytest life_expectancy --cov 
