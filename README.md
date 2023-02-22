@@ -1,5 +1,7 @@
 # Foundations Learning Path Assignments
 
+[![ci](https://github.com/LBolte29/assignment1/actions/workflows/actions.yml/badge.svg)](https://github.com/LBolte29/assignment1/actions/workflows/actions.yml)
+
 ## Introduction
 
 This assignment uses life expectancy in Europe grouped by Country (or other, like group of countries), Age, Sex, and Time. But the data format makes it hard to use. The task consists into cleaning the data and applying the concepts you've learned in the previous modules.
