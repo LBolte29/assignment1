@@ -22,13 +22,13 @@ jobs:
       -
         name: Lint
         run: |
-        pip install pylint
-        pylint life_expectancy.cleaning
+          pip install pylint
+          pylint life_expectancy.cleaning
   test:
     runs-on: ubuntu-latest
     steps:
       -
         name: Test
         run: |
-        pip install pytest pytest-cov
-        pytest life_expectancy --cov 
+          pip install pytest pytest-cov
+          pytest life_expectancy --cov 
