@@ -18,14 +18,12 @@ concurrency:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    needs: build
     steps:
       -
         name: Lint
         run: pylint life_expectancy.cleaning
   test:
     runs-on: ubuntu-latest
-    needs: build
     steps:
       -
         name: Test
