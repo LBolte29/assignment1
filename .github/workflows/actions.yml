@@ -7,14 +7,6 @@ on:
       - "develop"
       - "ci"
 
-env:
-  TAG_NAME: ${{ github.repository }}:${{ github.sha }}
-
-
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   lint:
     runs-on: ubuntu-latest
