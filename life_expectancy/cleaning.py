@@ -42,6 +42,9 @@ class Cleaner:  # pylint: disable=too-few-public-methods
         self.df = self.df[self.df[self.value_column] != self.nan_symbol]
         self.df = self.df.dropna(subset=[self.value_column])
 
+    def save_df(self) -> None:
+        self.df.to_csv(self.output_path, index=False)
+
     def run(self) -> None:
         "run the data cleaner"
         self.df.columns = [col.strip() for col in self.df.columns]
@@ -52,7 +55,6 @@ class Cleaner:  # pylint: disable=too-few-public-methods
         self._drop_values_with_nan()
         self.df = self.df.astype({self.value_column: "float64"})
         self.df = self.df[self.df[self.region_column] == self.region]
-        self.df.to_csv(self.output_path, index=False)
 
 
 def clean_data(region: str) -> None:
@@ -63,6 +65,7 @@ def clean_data(region: str) -> None:
         region,
     )
     cleaner.run()
+    cleaner.save_df()
 
 
 if __name__ == "__main__":  # pragma: no cover
