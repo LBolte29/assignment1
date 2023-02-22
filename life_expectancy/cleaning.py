@@ -101,6 +101,5 @@ def clean_data(region: str) -> None:
 if __name__ == "__main__":  # pragma: no cover
     parser = parser = argparse.ArgumentParser(description="Demo")
     parser.add_argument("--region", help="region filter", required=False, default="PT")
-    region = parser.parse_args().region.upper()
-    print(region)
-    clean_data(region)
+    region_filter = parser.parse_args().region.upper()
+    clean_data(region_filter)
