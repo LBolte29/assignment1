@@ -11,17 +11,17 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      -
+      - uses: actions/checkout@v3
         name: Lint
         run: |
           ls ${{ github.workspace }}
-          pip install pylint
+          python3 -m pip install pylint
           pylint life_expectancy.cleaning
   test:
     runs-on: ubuntu-latest
     steps:
-      -
+      - uses: actions/checkout@v3
         name: Test
         run: |
-          pip install pytest pytest-cov
+          python3 -m pip install pytest pytest-cov
           pytest life_expectancy --cov 
