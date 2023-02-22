@@ -7,21 +7,31 @@ on:
       - "develop"
       - "ci"
 
+env:
+  TAG_NAME: ${{ github.repository }}:${{ github.sha }}
+
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
     steps:
       - uses: actions/checkout@v3
-        name: Lint
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Lint
         run: |
-          ls ${{ github.workspace }}
-          python3 -m pip install pylint
-          pylint life_expectancy.cleaning
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        name: Test
+        pip install pylint
+        pylint life_expectancy.cleaning
+      - name: Test
         run: |
-          python3 -m pip install pytest pytest-cov
-          pytest life_expectancy --cov 
+        pip install pytest pytest-cov
+        pytest life_expectancy --cov 
