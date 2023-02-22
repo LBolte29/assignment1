@@ -1,8 +1,12 @@
 """Data cleaning module"""
 import argparse
+from pathlib import Path
 import pandas as pd
 
-class Cleaner: # pylint: disable=too-few-public-methods  
+OUTPUT_DIR = Path(__file__).parent / "data"
+
+
+class Cleaner:  # pylint: disable=too-few-public-methods
     """Class to clean data"""
 
     # data specifics
@@ -90,16 +94,15 @@ class Cleaner: # pylint: disable=too-few-public-methods
 def clean_data(region: str) -> None:
     "Necessary due to assignement"
     cleaner = Cleaner(
-        "~/code/nos-lp-foundations/assignments/life_expectancy/data/eu_life_expectancy_raw.tsv",
-        f"~/code/nos-lp-foundations/assignments/life_expectancy/data/{region.lower()}_life_expectancy.csv",
-        region
+        OUTPUT_DIR / "eu_life_expectancy_raw.tsv",
+        OUTPUT_DIR / f"{region.lower()}_life_expectancy.csv",
+        region,
     )
     cleaner.run()
 
 
-if __name__ == "__main__": # pragma: no cover
+if __name__ == "__main__":  # pragma: no cover
     parser = parser = argparse.ArgumentParser(description="Demo")
-    parser.add_argument("--region",help="region filter", required=False, default="PT")
-    region = parser.parse_args().region.upper()
-    print (region)
-    clean_data(region)
+    parser.add_argument("--region", help="region filter", required=False, default="PT")
+    region_filter = parser.parse_args().region.upper()
+    clean_data(region_filter)
