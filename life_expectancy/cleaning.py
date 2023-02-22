@@ -1,6 +1,9 @@
 """Data cleaning module"""
 import argparse
+from pathlib import Path
 import pandas as pd
+
+OUTPUT_DIR = Path(__file__).parent / "data"
 
 
 class Cleaner:  # pylint: disable=too-few-public-methods
@@ -91,8 +94,8 @@ class Cleaner:  # pylint: disable=too-few-public-methods
 def clean_data(region: str) -> None:
     "Necessary due to assignement"
     cleaner = Cleaner(
-        "~/code/nos-lp-foundations/assignments/life_expectancy/data/eu_life_expectancy_raw.tsv",
-        f"~/code/nos-lp-foundations/assignments/life_expectancy/data/{region.lower()}_life_expectancy.csv",
+        OUTPUT_DIR / "eu_life_expectancy_raw.tsv",
+        OUTPUT_DIR / f"{region.lower()}_life_expectancy.csv",
         region,
     )
     cleaner.run()
