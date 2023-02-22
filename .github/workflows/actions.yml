@@ -22,6 +22,7 @@ jobs:
       -
         name: Lint
         run: |
+          ls ${{ github.workspace }}
           pip install pylint
           pylint life_expectancy.cleaning
   test:
