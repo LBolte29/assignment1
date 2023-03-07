@@ -35,8 +35,7 @@ class Cleaner:  # pylint: disable=too-few-public-methods
             self.df,
             id_vars=self.data_specifics["identifier_column"].split(","),
             var_name=self.data_specifics["year_column"],
-            value_name=self.data_specifics["value_column"]
-            # value_vars=[str(year) for year in self.data_specifics["years_in_data"]],
+            value_name=self.data_specifics["value_column"],
         )
 
     def _drop_values_with_nan(self) -> None:
@@ -47,7 +46,7 @@ class Cleaner:  # pylint: disable=too-few-public-methods
         self.df = self.df.dropna(subset=[self.data_specifics["value_column"]])
 
     def save_df(self) -> None:
-        """ save df"""
+        """save df"""
         self.df.to_csv(self.output_path, index=False)
 
     def run(self) -> None:
@@ -59,7 +58,6 @@ class Cleaner:  # pylint: disable=too-few-public-methods
                 self.data_specifics["geo_time_column"]: self.data_specifics[
                     "region_column"
                 ],
-                # "variable": self.data_specifics["year_column"],
             }
         )
         self.df = self.df.astype({self.data_specifics["year_column"]: "int32"})
