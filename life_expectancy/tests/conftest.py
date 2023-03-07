@@ -10,7 +10,7 @@ def run_before_and_after_tests() -> None:
     """Fixture to execute commands before and after a test is run"""
     # Setup: fill with any logic you want
 
-    yield # this is where the testing happens
+    yield  # this is where the testing happens
 
     # Teardown : fill with any logic you want
     file_path = OUTPUT_DIR / "pt_life_expectancy.csv"
