@@ -16,7 +16,6 @@ class Cleaner:  # pylint: disable=too-few-public-methods
         "value_column": "value",
         "region_column": "region",
         "geo_time_column": "geo\\time",
-        "value_column": "value",
         "identifier_column": "unit,sex,age,geo\\time",
         "identifier_column_seperator": ",",
         "nan_symbol": ":",
@@ -48,6 +47,7 @@ class Cleaner:  # pylint: disable=too-few-public-methods
         self.df = self.df.dropna(subset=[self.data_specifics["value_column"]])
 
     def save_df(self) -> None:
+        """ save df"""
         self.df.to_csv(self.output_path, index=False)
 
     def run(self) -> None:
@@ -72,6 +72,7 @@ class Cleaner:  # pylint: disable=too-few-public-methods
 
 
 def load_clean_save_data(region: str) -> None:
+    """load df, clean and save"""
     output_file = f"{region.lower()}_life_expectancy.csv"
     cleaner = Cleaner(
         DIR / INPUT_FILE,
@@ -83,6 +84,7 @@ def load_clean_save_data(region: str) -> None:
 
 
 def main() -> None:
+    """main function"""
     parser = parser = argparse.ArgumentParser(description="Demo")
     parser.add_argument("--region", help="region filter", required=False, default="PT")
     region_filter = parser.parse_args().region.upper()
