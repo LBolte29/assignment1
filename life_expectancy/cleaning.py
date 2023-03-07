@@ -41,7 +41,10 @@ class Cleaner:  # pylint: disable=too-few-public-methods
         )
 
     def _drop_values_with_nan(self) -> None:
-        self.df = self.df[self.df[self.data_specifics["value_column"]] != self.data_specifics["nan_symbol"]]
+        self.df = self.df[
+            self.df[self.data_specifics["value_column"]]
+            != self.data_specifics["nan_symbol"]
+        ]
         self.df = self.df.dropna(subset=[self.data_specifics["value_column"]])
 
     def save_df(self) -> None:
@@ -53,15 +56,20 @@ class Cleaner:  # pylint: disable=too-few-public-methods
         self._unpivot()
         self.df = self.df.rename(
             columns={
-                self.data_specifics["geo_time_column"]: self.data_specifics["region_column"],
+                self.data_specifics["geo_time_column"]: self.data_specifics[
+                    "region_column"
+                ],
                 # "variable": self.data_specifics["year_column"],
             }
         )
         self.df = self.df.astype({self.data_specifics["year_column"]: "int32"})
-        self.df[self.data_specifics["value_column"]] = self.df[self.data_specifics["value_column"]].str.split().str[0]
+        self.df[self.data_specifics["value_column"]] = (
+            self.df[self.data_specifics["value_column"]].str.split().str[0]
+        )
         self._drop_values_with_nan()
         self.df = self.df.astype({self.data_specifics["value_column"]: "float64"})
         self.df = self.df[self.df[self.data_specifics["region_column"]] == self.region]
+
 
 def load_clean_save_data(region: str) -> None:
     output_file = f"{region.lower()}_life_expectancy.csv"
@@ -72,6 +80,7 @@ def load_clean_save_data(region: str) -> None:
     )
     cleaner.run()
     cleaner.save_df()
+
 
 def main() -> None:
     parser = parser = argparse.ArgumentParser(description="Demo")
